@@ -6,6 +6,9 @@ import java.util.LinkedHashSet;
 
 import nextstep.utils.Randoms;
 
+/**
+ * computer 생성 숫자
+ */
 public class ComputerNumbersGenerator implements NumbersGenerator{
 
 	private int[] ballNumbers;
@@ -13,6 +16,11 @@ public class ComputerNumbersGenerator implements NumbersGenerator{
 	public ComputerNumbersGenerator() {
 		this.ballNumbers = new int[3];
 		generateNumbers();
+		System.out.println(Arrays.toString(ballNumbers));
+	}
+
+	public int[] getBallNumbers() {
+		return ballNumbers;
 	}
 
 	/**
@@ -21,13 +29,12 @@ public class ComputerNumbersGenerator implements NumbersGenerator{
 	@Override
 	public void generateNumbers() {
 		LinkedHashSet<Integer> set = new LinkedHashSet<>();
-		while (set.size() != 3){
+		while (set.size() != NumbersGenerator.BALL_COUNT){
 			int num = Randoms.pickNumberInRange(1, 9);
 			set.add(num);
 		}
 
 		toArray(set);
-
 	}
 
 	/**
@@ -43,10 +50,5 @@ public class ComputerNumbersGenerator implements NumbersGenerator{
 		}
 	}
 
-	@Override
-	public String toString() {
-		return "ComputerNumbersGenerator{" +
-			"ballNumbers=" + Arrays.toString(ballNumbers) +
-			'}';
-	}
+
 }
