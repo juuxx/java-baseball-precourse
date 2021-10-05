@@ -13,7 +13,6 @@ class UserNumbersGeneratorTest {
 
 	ByteArrayInputStream bindData;
 
-	//Scanner를 테스트 하기위한 method
 	private void provideInput(String data) {
 		bindData = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
 		System.setIn(bindData);
