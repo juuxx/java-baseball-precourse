@@ -9,7 +9,7 @@ import nextstep.utils.Console;
  */
 public class UserNumbersGenerator implements NumbersGenerator{
 
-	private int[] ballNumbers;
+	private final int[] ballNumbers;
 
 	public UserNumbersGenerator() {
 		ballNumbers = new int[3];
@@ -80,7 +80,7 @@ public class UserNumbersGenerator implements NumbersGenerator{
 	 * @return
 	 */
 	private boolean checkLength(String userInput) {
-		return userInput.length() == NumbersGenerator.BALL_COUNT;
+		return userInput.length() == BALL_COUNT;
 	}
 
 	/**
@@ -89,12 +89,12 @@ public class UserNumbersGenerator implements NumbersGenerator{
 	 * @return
 	 */
 	private boolean checkDigit(String userInput) {
-		boolean isVaild = true;
+		boolean isValid = true;
 		for(int i = 0 ; i < userInput.length() ; i++) {
 			char tmp = userInput.charAt(i);
-			isVaild = Character.isDigit(tmp);
+			isValid = Character.isDigit(tmp);
 		}
-		return isVaild;
+		return isValid;
 	}
 
 	/**
@@ -103,7 +103,17 @@ public class UserNumbersGenerator implements NumbersGenerator{
 	 * @return
 	 */
 	private boolean checkRange(String userInput) {
-		return !userInput.contains("0");
+
+		String[] arrays = userInput.split("");
+		for (String str : arrays) {
+			if (checkBetweenNum(str)) return false;
+		}
+		return true;
+	}
+
+	private boolean checkBetweenNum(String str) {
+		int num = Integer.parseInt(str);
+		return num < RANDOM_MIN_NUM || num > RANDOM_MAX_NUM;
 	}
 
 	/**

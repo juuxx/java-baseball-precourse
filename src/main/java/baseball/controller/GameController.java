@@ -3,7 +3,7 @@ package baseball.controller;
 import baseball.domain.BaseballStatus;
 import baseball.domain.ComputerNumbersGenerator;
 import baseball.domain.UserNumbersGenerator;
-import nextstep.utils.Console;
+import baseball.util.TextMessage;
 
 public class GameController {
 
@@ -20,7 +20,7 @@ public class GameController {
 		do {
 			UserNumbersGenerator userNumbers = new UserNumbersGenerator();
 			BaseballStatus status = new BaseballStatus(comNumbers, userNumbers.getBallNumbers());
-			status.printHint();
+			TextMessage.printHint(status);
 			isOver = status.isOver();
 		} while (!isOver);
 	}
@@ -30,21 +30,13 @@ public class GameController {
 	}
 
 	private int choiceOption(){
-		System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-		String userInput = Console.readLine();
-		if (checkValidation(userInput)){
+		String userInput = TextMessage.isRestart();
+		if (TextMessage.checkValidation(userInput)){
 			return choiceOption();
 		}
 		return  Integer.parseInt(userInput);
 	}
 
-	private boolean checkValidation(String userInput) {
-		return userInput.length() != 1 || !checkNum(userInput);
-	}
 
-	private boolean checkNum(String userInput) {
-		int num = Integer.parseInt(userInput);
-		return num == 1 || num == 2;
-	}
 
 }
