@@ -1,5 +1,6 @@
 package baseball.domain;
 
+import static baseball.util.TextMessage.*;
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +21,7 @@ class BaseballStatusTest {
 		int strike = status.getStrike();
 
 		//then
-		status.printHint();
+		printHint(status);
 		assertThat(ball).isEqualTo(0);
 		assertThat(strike).isEqualTo(1);
 	}
@@ -38,7 +39,7 @@ class BaseballStatusTest {
 		int strike = status.getStrike();
 
 		//then
-		status.printHint();
+		printHint(status);
 		assertThat(ball).isEqualTo(2);
 		assertThat(strike).isEqualTo(0);
 
@@ -57,7 +58,7 @@ class BaseballStatusTest {
 		int strike = status.getStrike();
 
 		//then
-		status.printHint();
+		printHint(status);
 		assertThat(ball).isEqualTo(0);
 		assertThat(strike).isEqualTo(0);
 
@@ -76,7 +77,7 @@ class BaseballStatusTest {
 		int strike = status.getStrike();
 
 		//then
-		status.printHint();
+		printHint(status);
 		assertThat(ball).isEqualTo(1);
 		assertThat(strike).isEqualTo(1);
 

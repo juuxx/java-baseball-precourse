@@ -2,17 +2,17 @@ package baseball.domain;
 
 import java.util.HashSet;
 
-import nextstep.utils.Console;
+import baseball.util.TextMessage;
 
 /**
  * user 입력 숫자
  */
 public class UserNumbersGenerator implements NumbersGenerator{
 
-	private int[] ballNumbers;
+	private final int[] ballNumbers;
 
 	public UserNumbersGenerator() {
-		ballNumbers = new int[3];
+		ballNumbers = new int[BALL_COUNT];
 		generateNumbers();
 	}
 
@@ -33,20 +33,12 @@ public class UserNumbersGenerator implements NumbersGenerator{
 		String userInput;
 		boolean isBreak;
 		do {
-			userInput = inputNumByUser();
+			userInput = TextMessage.inputNumByUser();
 			isBreak = checkValidate(userInput);
 		}while (!isBreak);
 		return userInput;
 	}
 
-	/**
-	 * user input
-	 * @return
-	 */
-	private String inputNumByUser(){
-		System.out.print("숫자를 입력해주세요 : ");
-		return Console.readLine();
-	}
 
 	/**
 	 * String to array
@@ -67,7 +59,7 @@ public class UserNumbersGenerator implements NumbersGenerator{
 	private boolean checkValidate(String userInput){
 		if (!checkLength(userInput) || !checkDigit(userInput) || !checkRange(userInput)
 			||!checkDupl(userInput)) {
-			System.out.println("[ERROR] 잘못 입력하셨습니다. 다시 입력해주세요.");
+			TextMessage.printError();
 			return false;
 		}
 		return true;
@@ -80,7 +72,7 @@ public class UserNumbersGenerator implements NumbersGenerator{
 	 * @return
 	 */
 	private boolean checkLength(String userInput) {
-		return userInput.length() == NumbersGenerator.BALL_COUNT;
+		return userInput.length() == BALL_COUNT;
 	}
 
 	/**
@@ -89,12 +81,12 @@ public class UserNumbersGenerator implements NumbersGenerator{
 	 * @return
 	 */
 	private boolean checkDigit(String userInput) {
-		boolean isVaild = true;
+		boolean isValid = true;
 		for(int i = 0 ; i < userInput.length() ; i++) {
 			char tmp = userInput.charAt(i);
-			isVaild = Character.isDigit(tmp);
+			isValid = Character.isDigit(tmp);
 		}
-		return isVaild;
+		return isValid;
 	}
 
 	/**
@@ -103,7 +95,17 @@ public class UserNumbersGenerator implements NumbersGenerator{
 	 * @return
 	 */
 	private boolean checkRange(String userInput) {
-		return !userInput.contains("0");
+
+		String[] arrays = userInput.split("");
+		for (String str : arrays) {
+			if (checkBetweenNum(str)) return false;
+		}
+		return true;
+	}
+
+	private boolean checkBetweenNum(String str) {
+		int num = Integer.parseInt(str);
+		return num < RANDOM_MIN_NUM || num > RANDOM_MAX_NUM;
 	}
 
 	/**
@@ -116,7 +118,7 @@ public class UserNumbersGenerator implements NumbersGenerator{
 		for(int i = 0 ; i < userInput.length() ; i++) {
 			tmp.add(Character.getNumericValue(userInput.charAt(i)));
 		}
-		return tmp.size() == NumbersGenerator.BALL_COUNT;
+		return tmp.size() == BALL_COUNT;
 	}
 
 

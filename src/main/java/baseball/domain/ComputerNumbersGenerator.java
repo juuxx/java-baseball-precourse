@@ -11,10 +11,10 @@ import nextstep.utils.Randoms;
  */
 public class ComputerNumbersGenerator implements NumbersGenerator{
 
-	private int[] ballNumbers;
+	private final int[] ballNumbers;
 
 	public ComputerNumbersGenerator() {
-		this.ballNumbers = new int[3];
+		this.ballNumbers = new int[BALL_COUNT];
 		generateNumbers();
 		System.out.println(Arrays.toString(ballNumbers));
 	}
@@ -29,7 +29,7 @@ public class ComputerNumbersGenerator implements NumbersGenerator{
 	@Override
 	public void generateNumbers() {
 		LinkedHashSet<Integer> set = new LinkedHashSet<>();
-		while (set.size() != NumbersGenerator.BALL_COUNT){
+		while (set.size() != BALL_COUNT){
 			int num = Randoms.pickNumberInRange(1, 9);
 			set.add(num);
 		}
