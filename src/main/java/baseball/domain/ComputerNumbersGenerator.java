@@ -1,6 +1,5 @@
 package baseball.domain;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
@@ -16,7 +15,7 @@ public class ComputerNumbersGenerator implements NumbersGenerator{
 	public ComputerNumbersGenerator() {
 		this.ballNumbers = new int[BALL_COUNT];
 		generateNumbers();
-		System.out.println(Arrays.toString(ballNumbers));
+		//System.out.println(Arrays.toString(ballNumbers));
 	}
 
 	public int[] getBallNumbers() {
@@ -29,7 +28,7 @@ public class ComputerNumbersGenerator implements NumbersGenerator{
 	@Override
 	public void generateNumbers() {
 		LinkedHashSet<Integer> set = new LinkedHashSet<>();
-		while (set.size() != BALL_COUNT){
+		while (set.size() != NumbersGenerator.BALL_COUNT){
 			int num = Randoms.pickNumberInRange(1, 9);
 			set.add(num);
 		}

@@ -2,6 +2,9 @@ package baseball.domain;
 
 import static baseball.domain.NumbersGenerator.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import baseball.util.TextMessage;
 
 public class BaseballStatus {
@@ -16,7 +19,7 @@ public class BaseballStatus {
 		this.computerBalls = computerBalls;
 		this.userBalls = userBalls;
 
-		compareThreeNumber();
+		compareNumbers(computerBalls, userBalls);
 	}
 
 
@@ -40,42 +43,34 @@ public class BaseballStatus {
 		return ball;
 	}
 
-	/**
-	 * computer 숫자와 user 숫자 비교
-	 */
-	private void compareThreeNumber(){
+	private void compareNumbers(int[] comp, int[] user) {
+		Set<Integer> answerSet = getAnswerSet(comp);
 		int strike = 0;
-		int ball = 0;
-		for (int i = 0; i < computerBalls.length; i++) {
-			strike += findStrike(computerBalls[i], i, userBalls);
-			ball += findBall(computerBalls[i], i, userBalls);
+		int hit = 0;
+		for (int i = 0; i < user.length; i++) {
+			int x = user[i];
+			strike += isStrike(x, i, comp) ? 1 : 0;
+			hit += isHit(x, answerSet) ? 1 : 0;
 		}
+
 		this.strike = strike;
-		this.ball = ball;
+		this.ball = user.length - strike - hit;
+
 	}
 
-	private int findStrike(int comValue, int comIndex, int[] userBalls){
-		int count = 0;
-		for(int i = 0; i < BALL_COUNT; i++){
-			count += countStrike(comValue, comIndex, userBalls[i], i);
+	private Set<Integer> getAnswerSet(int[] answer) {
+		Set<Integer> answerSet = new HashSet<>();
+		for (int i = 0; i < answer.length; i++) {
+			answerSet.add(answer[i]);
 		}
-		return count;
+		return answerSet;
 	}
 
-	private int findBall(int comValue, int comIndex, int[] userBalls){
-		int count = 0;
-		for (int i = 0; i < BALL_COUNT; i++) {
-			count += countBall(comValue, comIndex, userBalls[i], i);
-		}
-		return count;
+	public Boolean isHit(int x, Set<Integer> answerSet) {
+		return !answerSet.contains(x);
 	}
 
-	private int countStrike(int comValue, int comIndex, int userValue, int userIndex){
-		return comValue == userValue && comIndex == userIndex ? 1 : 0;
+	public Boolean isStrike(int x, int pos, int[] answer) {
+		return answer[pos] == x;
 	}
-
-	private int countBall(int comValue, int comIndex, int userValue, int userIndex){
-		return comValue == userValue && comIndex != userIndex ? 1 : 0;
-	}
-
 }
