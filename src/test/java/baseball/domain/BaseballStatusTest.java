@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import baseball.util.TextMessage;
+
 class BaseballStatusTest {
 
 	@Test
@@ -20,7 +22,7 @@ class BaseballStatusTest {
 		int strike = status.getStrike();
 
 		//then
-		status.printHint();
+		TextMessage.printHint(status);
 		assertThat(ball).isEqualTo(0);
 		assertThat(strike).isEqualTo(1);
 	}
@@ -38,7 +40,7 @@ class BaseballStatusTest {
 		int strike = status.getStrike();
 
 		//then
-		status.printHint();
+		TextMessage.printHint(status);
 		assertThat(ball).isEqualTo(2);
 		assertThat(strike).isEqualTo(0);
 
@@ -57,7 +59,7 @@ class BaseballStatusTest {
 		int strike = status.getStrike();
 
 		//then
-		status.printHint();
+		TextMessage.printHint(status);
 		assertThat(ball).isEqualTo(0);
 		assertThat(strike).isEqualTo(0);
 
@@ -76,7 +78,7 @@ class BaseballStatusTest {
 		int strike = status.getStrike();
 
 		//then
-		status.printHint();
+		TextMessage.printHint(status);
 		assertThat(ball).isEqualTo(1);
 		assertThat(strike).isEqualTo(1);
 

@@ -1,5 +1,9 @@
 package baseball.domain;
 
+import static baseball.domain.NumbersGenerator.*;
+
+import baseball.util.TextMessage;
+
 public class BaseballStatus {
 	private int[] computerBalls;
 	private int[] userBalls;
@@ -15,26 +19,14 @@ public class BaseballStatus {
 		compareThreeNumber();
 	}
 
-	/**
-	 * 결과 print
-	 */
-	public void printHint(){
-		String printStr = "";
-
-		printStr += printStrike();
-		printStr += printBall();
-		printStr += printNothing();
-
-		System.out.println(printStr);
-	}
 
 	/**
 	 * 게임 종료
 	 * @return
 	 */
 	public boolean isOver(){
-		if (strike == NumbersGenerator.BALL_COUNT){
-			System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 끝");
+		if (strike == BALL_COUNT){
+			TextMessage.printGameOver();
 			return true;
 		}
 		return false;
@@ -64,7 +56,7 @@ public class BaseballStatus {
 
 	private int findStrike(int comValue, int comIndex, int[] userBalls){
 		int count = 0;
-		for(int i = 0; i < NumbersGenerator.BALL_COUNT; i++){
+		for(int i = 0; i < BALL_COUNT; i++){
 			count += countStrike(comValue, comIndex, userBalls[i], i);
 		}
 		return count;
@@ -72,7 +64,7 @@ public class BaseballStatus {
 
 	private int findBall(int comValue, int comIndex, int[] userBalls){
 		int count = 0;
-		for (int i = 0; i < NumbersGenerator.BALL_COUNT; i++) {
+		for (int i = 0; i < BALL_COUNT; i++) {
 			count += countBall(comValue, comIndex, userBalls[i], i);
 		}
 		return count;
@@ -84,18 +76,6 @@ public class BaseballStatus {
 
 	private int countBall(int comValue, int comIndex, int userValue, int userIndex){
 		return comValue == userValue && comIndex != userIndex ? 1 : 0;
-	}
-
-	private String printStrike(){
-		return strike > 0 ? strike + "스트라이크 " : "";
-	}
-
-	private String printBall(){
-		return ball > 0 ? ball + "볼" : "";
-	}
-
-	private String printNothing(){
-		return ball == 0 && strike == 0 ? "낫싱" : "";
 	}
 
 }

@@ -29,8 +29,8 @@ public class ComputerNumbersGenerator implements NumbersGenerator{
 	@Override
 	public void generateNumbers() {
 		LinkedHashSet<Integer> set = new LinkedHashSet<>();
-		while (set.size() != NumbersGenerator.BALL_COUNT){
-			int num = Randoms.pickNumberInRange(1, 9);
+		while (set.size() != BALL_COUNT){
+			int num = Randoms.pickNumberInRange(RANDOM_MIN_NUM, RANDOM_MAX_NUM);
 			set.add(num);
 		}
 
